@@ -66,3 +66,4 @@ function setTimer() {
         allButtons.eq(n % size).trigger('click')
     }, 2000)
 }
+
