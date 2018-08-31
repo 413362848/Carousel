@@ -1,16 +1,23 @@
-
-.images {
+/* 把图片放在同一栏并且左对齐 */
+.images,.images2 {
     display: flex;
+    /* flex-start（默认值）：左对齐 */
     align-items: flex-start;
     transition: transform 0.5s;
 }
-.window {
+.images,.images2 img{
+    vertical-align: top;
+}
+/* 设置显示窗口大小 */
+.window,.window2 {
     width: 960px;
     overflow: hidden;
     border: 1px solid red;
-    margin: 0 auto;
+    margin: 30px auto;
 }
-.bnCtrl {
-    margin-top: 20px;
+.bnCtrl,.bnCtrl2 {
     text-align: center;
+}
+.red{
+    color:red;
 }
