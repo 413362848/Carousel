@@ -1,0 +1,16 @@
+
+.images {
+    display: flex;
+    align-items: flex-start;
+    transition: transform 0.5s;
+}
+.window {
+    width: 960px;
+    overflow: hidden;
+    border: 1px solid red;
+    margin: 0 auto;
+}
+.bnCtrl {
+    margin-top: 20px;
+    text-align: center;
+}
