@@ -67,3 +67,69 @@ function setTimer() {
     }, 2000)
 }
 
+//轮播3
+$('.images3  img:nth-child(1)').addClass('current')
+$('.images3  img:nth-child(2)').addClass('enter')
+$('.images3  img:nth-child(3)').addClass('enter')
+$('.images3  img:nth-child(4)').addClass('enter')
+$('.images3  img:nth-child(5)').addClass('enter')
+
+// var imgs = $('.images3 img')
+// for(let i=0;i<imgs.length;i++){
+//     $(imgs[i]).addClass('enter')
+// }
+
+
+
+let m = 1
+setInterval(() => {
+
+    // 使用ES6插值法把n传进去
+    $(`.images3  img:nth-child(${x(m)})`).removeClass('current').addClass('leave')
+        //one()表示只此一次，transitonend表示动画结束时
+        .one('transitionend',(e) => {
+            $(e.currentTarget).removeClass('leave').addClass('enter')
+        })
+    $(`.images3  img:nth-child(${x(m+1)})`).removeClass('enter').addClass('current')
+    m += 1
+},2000)
+
+function x(m){
+    if(m>5){
+        m = m % 5
+        if (m === 0){
+            m = 5
+        }
+    }
+    return m
+}
+
+/**
+setTimeout(() => {
+    $('.images3  img:nth-child(1)').removeClass('current').addClass('leave')
+        //one()表示只此一次，transitonend表示动画结束时
+        .one('transitionend',(e) => {
+            $(e.currentTarget).removeClass('leave').addClass('enter')
+        })
+    $('.images3  img:nth-child(2)').removeClass('enter').addClass('current')
+},2000)
+
+setTimeout(() => {
+    $('.images3  img:nth-child(2)').removeClass('current').addClass('leave')
+        //one()表示只此一次，transitonend表示动画结束时
+        .one('transitionend',(e) => {
+            $(e.currentTarget).removeClass('leave').addClass('enter')
+        })
+    $('.images3  img:nth-child(3)').removeClass('enter').addClass('current')
+},4000)
+
+setTimeout(() => {
+    $('.images3  img:nth-child(3)').removeClass('current').addClass('leave')
+        //one()表示只此一次，transitonend表示动画结束时
+        .one('transitionend',(e) => {
+            $(e.currentTarget).removeClass('leave').addClass('enter')
+        })
+    $('.images3  img:nth-child(1)').removeClass('enter').addClass('current')
+},6000)
+
+ */

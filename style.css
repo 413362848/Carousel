@@ -1,3 +1,5 @@
+*{margin: 0;padding: 0}
+*{box-sizing: border-box}
 /* 把图片放在同一栏并且左对齐 */
 .images,.images2 {
     display: flex;
@@ -20,4 +22,38 @@
 }
 .red{
     color:red;
+}
+
+.window3 {
+    width: 960px;
+    height: 540px;
+    margin: 30px auto;
+    overflow: hidden;
+    border: 1px solid red;
+}
+.images3 {
+    /* display: flex; */
+    position: relative;
+}
+.images3 img {
+    width: 100%;
+    transition: all 0.5s;
+    position: absolute;
+    top: 0;
+}
+
+/* 图片在轮播中的状态 */
+.images3 img.current {
+    left: 0;
+    transform: translateX(0);
+    z-index: 1;
+}
+.images3 img.leave {
+    transform: translateX(-100%);
+    z-index: 1;
+}
+.images3 img.enter {
+    transform: translateX(100%)
+}
+.images3 img.stay {
 }
