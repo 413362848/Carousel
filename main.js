@@ -68,31 +68,21 @@ function setTimer() {
 }
 
 //轮播3
-$('.images3  img:nth-child(1)').addClass('current')
-$('.images3  img:nth-child(2)').addClass('enter')
-$('.images3  img:nth-child(3)').addClass('enter')
-$('.images3  img:nth-child(4)').addClass('enter')
-$('.images3  img:nth-child(5)').addClass('enter')
-
-// var imgs = $('.images3 img')
-// for(let i=0;i<imgs.length;i++){
-//     $(imgs[i]).addClass('enter')
-// }
-
-
-
 let m = 1
-setInterval(() => {
 
+imgsInit()
+
+setInterval(() => {
     // 使用ES6插值法把n传进去
-    $(`.images3  img:nth-child(${x(m)})`).removeClass('current').addClass('leave')
+    makeLeave(getImages(m))
         //one()表示只此一次，transitonend表示动画结束时
         .one('transitionend',(e) => {
-            $(e.currentTarget).removeClass('leave').addClass('enter')
+            makeEnter($(e.currentTarget))
         })
-    $(`.images3  img:nth-child(${x(m+1)})`).removeClass('enter').addClass('current')
+    makeCurrent(getImages(m+1)) 
     m += 1
 },2000)
+
 
 function x(m){
     if(m>5){
@@ -103,7 +93,27 @@ function x(m){
     }
     return m
 }
+function getImages(m){
+    return $(`.images3  img:nth-child(${x(m)})`)
+}
 
+function imgsInit(){
+    let n = 1
+    $(`.images3  img:nth-child(${n})`).addClass('current')
+        .siblings().addClass('enter')
+}
+function makeLeave($node){
+    $node.removeClass('current').addClass('leave')
+    return $node
+}
+function makeEnter($node){
+    $node.removeClass('leave').addClass('enter')
+    return $node
+}
+function makeCurrent($node){
+    $node.removeClass('enter').addClass('current')
+    return $node
+}
 /**
 setTimeout(() => {
     $('.images3  img:nth-child(1)').removeClass('current').addClass('leave')
