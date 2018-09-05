@@ -72,7 +72,7 @@ let m = 1
 
 imgsInit()
 
-setInterval(() => {
+let timer = setInterval(() => {
     // 使用ES6插值法把n传进去
     makeLeave(getImages(m))
         //one()表示只此一次，transitonend表示动画结束时
@@ -114,32 +114,92 @@ function makeCurrent($node){
     $node.removeClass('enter').addClass('current')
     return $node
 }
-/**
-setTimeout(() => {
-    $('.images3  img:nth-child(1)').removeClass('current').addClass('leave')
-        //one()表示只此一次，transitonend表示动画结束时
-        .one('transitionend',(e) => {
-            $(e.currentTarget).removeClass('leave').addClass('enter')
-        })
-    $('.images3  img:nth-child(2)').removeClass('enter').addClass('current')
-},2000)
 
-setTimeout(() => {
-    $('.images3  img:nth-child(2)').removeClass('current').addClass('leave')
-        //one()表示只此一次，transitonend表示动画结束时
-        .one('transitionend',(e) => {
-            $(e.currentTarget).removeClass('leave').addClass('enter')
-        })
-    $('.images3  img:nth-child(3)').removeClass('enter').addClass('current')
-},4000)
+document.addEventListener('visibilitychange',function(e){
+    if(document.hidden){
+        window.clearInterval(timer)
+    }else{
+        timer = setInterval(() => {
+            // 使用ES6插值法把n传进去
+            makeLeave(getImages(m))
+                //one()表示只此一次，transitonend表示动画结束时
+                .one('transitionend',(e) => {
+                    makeEnter($(e.currentTarget))
+                })
+            makeCurrent(getImages(m+1)) 
+            m += 1
+        },2000)
+    }
+})
 
-setTimeout(() => {
-    $('.images3  img:nth-child(3)').removeClass('current').addClass('leave')
-        //one()表示只此一次，transitonend表示动画结束时
-        .one('transitionend',(e) => {
-            $(e.currentTarget).removeClass('leave').addClass('enter')
-        })
-    $('.images3  img:nth-child(1)').removeClass('enter').addClass('current')
-},6000)
 
- */
+ /**
+  * 轮播4
+  */
+let $button4 = $('#bnCtrl4 button')
+let $images4 = $('#images4')
+let current = 0
+let $imgs   = $images4.children('img')
+
+makeFakeSlides()
+
+$images4.css({transform:'translateX(-960px)'})
+
+bindEvents()
+
+function bindEvents(){
+    $button4.eq(0).on('click',function(){
+        if (current == 4){
+            $images4.css({transform:'translateX(-5760px)'})
+            
+            // 当动画结束时添加一个时间，执行函数，让他快速转回第一张图片
+            .one('transitionend',function(){
+                
+                //小技巧，先hide()再show(),中断动画
+                $images4.hide()
+                        .offset()
+                        $images4.css({transform:'translateX(-960px)'})
+                        .show()
+                    })
+        }else{
+            $images4.css({transform:'translateX(-960px)'})
+            current = 0   
+        }
+    })
+    $button4.eq(1).on('click',function(){
+        $images4.css({transform:'translateX(-1920px)'})
+        current = 1
+    })
+    $button4.eq(2).on('click',function(){
+        $images4.css({transform:'translateX(-2880px)'})
+        current = 2
+    })
+    $button4.eq(3).on('click',function(){
+        $images4.css({transform:'translateX(-3840px)'})
+        current = 3
+    })
+    $button4.eq(4).on('click',function(){
+        if (current == 0){
+            $images4.css({transform:'translateX(0px)'})
+            .one('transitionend',function(){           
+                $images4.hide()
+                        .offset()
+                        $images4.css({transform:'translateX(-4800px)'})
+                        .show()
+                    })
+                }else{
+            $images4.css({transform:'translateX(-4800px)'})
+            current = 4
+        }  
+    })
+}
+
+function makeFakeSlides(){
+    //克隆第一张图片和最后一张图片
+    let $firstCopy = $imgs.eq(0).clone(true)
+    let $lastCopy = $imgs.eq($imgs.length-1).clone(true)
+
+    // 把第一张图片放到最后一张图片的后面，把最后一张图片放到第一张图片的前面
+    $images4.append($firstCopy)
+    $images4.prepend($lastCopy)
+}

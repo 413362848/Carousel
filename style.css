@@ -1,5 +1,5 @@
 *{margin: 0;padding: 0}
-*{box-sizing: border-box}
+/* *{box-sizing: border-box} */
 body p {
     padding-top: 40px ;
     text-align: center;
@@ -59,5 +59,24 @@ body p {
 .images3 img.enter {
     transform: translateX(100%)
 }
-.images3 img.stay {
+
+/* 轮播4 */
+.window4 {
+    width: 960px;
+    border: 1px solid red;
+    margin: 30px auto;
+    overflow: hidden;
+}
+.images4 {
+    display: flex;
+    transition: all 1s;
+}
+.images4 img{
+    width: 100%;
+}
+.bnCtrl4 {
+    text-align: center;
+}
+.bnCtrl4 button{
+    margin: 5px;
 }
