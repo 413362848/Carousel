@@ -147,6 +147,71 @@ $images4.css({transform:'translateX(-960px)'})
 
 bindEvents()
 
+$(next).on('click',function(){
+    goToSlides(current + 1)
+})
+
+$(prev).on('click',function(){
+    goToSlides(current - 1)
+})
+
+let thisTimer = setInterval(function(){
+    goToSlides(current + 1)
+},2000)
+
+$('.window4').on('mouseenter',function(){
+    window.clearInterval(thisTimer)
+}).on('mouseleave',function(){
+    thisTimer = setInterval(function(){
+        goToSlides(current + 1)
+    },2000)
+})
+
+function bindEvents(){
+    $('#bnCtrl4').on('click','button',function(e){
+        let $buttons = $(e.currentTarget)
+        let index = $buttons.index() 
+        goToSlides(index)
+    })
+}
+
+function goToSlides(index){
+    if(index > $button4.length - 1){
+        index = 0
+    }else if(index < 0 ){
+        index = $button4.length -1
+    }
+    if(current === $button4.length-1 && index === 0){
+        console.log($button4.length)
+        $images4.css({transform:`translateX(${-($button4.length+1) * 960}px)`})
+        
+        // 当动画结束时添加一个时间，执行函数，让他快速转回第一张图片
+        .one('transitionend',function(){
+            
+            //小技巧，先hide()再show(),中断动画
+            $images4.hide()
+                    .offset()
+                    $images4.css({transform:`translateX(${-(index+1)*960}px)`})
+                    .show()
+                })
+    }else if(current === 0 && index === $button4.length-1){
+        $images4.css({transform:`translateX(0px)`})
+        
+        // 当动画结束时添加一个时间，执行函数，让他快速转回第一张图片
+        .one('transitionend',function(){
+            
+            //小技巧，先hide()再show(),中断动画
+            $images4.hide()
+                    .offset()
+                    $images4.css({transform:`translateX(${-(index+1) * 960}px)`})
+                    .show()
+                })
+    }else{
+        $images4.css({transform:`translateX(${-(index+1) * 960}px)`})
+    }
+    current = index
+}   
+/**
 function bindEvents(){
     $button4.eq(0).on('click',function(){
         if (current == 4){
@@ -193,6 +258,7 @@ function bindEvents(){
         }  
     })
 }
+ */
 
 function makeFakeSlides(){
     //克隆第一张图片和最后一张图片
