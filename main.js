@@ -143,8 +143,8 @@ document.addEventListener('visibilitychange',function(e){
   */
 let $button4 = $('#bnCtrl4 button')
 let $images4 = $('#images4')
-let current = 0
 let $imgs   = $images4.children('img')
+let current = 0
 
 makeFakeSlides()
 
@@ -162,14 +162,14 @@ $(prev).on('click',function(){
 
 let thisTimer = setInterval(function(){
     goToSlides(current + 1)
-},2000)
+},3000)
 
-$('.window4').on('mouseenter',function(){
+$('.container').on('mouseenter',function(){
     window.clearInterval(thisTimer)
 }).on('mouseleave',function(){
     thisTimer = setInterval(function(){
         goToSlides(current + 1)
-    },2000)
+    },3000)
 })
 
 function bindEvents(){
@@ -186,14 +186,16 @@ function goToSlides(index){
     }else if(index < 0 ){
         index = $button4.length -1
     }
+    console.log('current,'+ current)
+    console.log('index,'+ index)
     if(current === $button4.length-1 && index === 0){
         $images4.css({transform:`translateX(${-($button4.length+1) * 960}px)`})
         
         // 当动画结束时添加一个时间，执行函数，让他快速转回第一张图片
-        .one('transitionend',function(){
+            .one('transitionend',function(){
             
             //小技巧，先hide()再show(),中断动画
-            $images4.hide()
+                $images4.hide()
                     .offset()
                     $images4.css({transform:`translateX(${-(index+1)*960}px)`})
                     .show()
@@ -202,10 +204,10 @@ function goToSlides(index){
         $images4.css({transform:`translateX(0px)`})
         
         // 当动画结束时添加一个时间，执行函数，让他快速转回第一张图片
-        .one('transitionend',function(){
+            .one('transitionend',function(){
             
             //小技巧，先hide()再show(),中断动画
-            $images4.hide()
+                $images4.hide()
                     .offset()
                     $images4.css({transform:`translateX(${-(index+1) * 960}px)`})
                     .show()
