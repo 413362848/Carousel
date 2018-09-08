@@ -30,17 +30,20 @@ for(let i = 0;i<allButtons.length;i++){
         // 根据下标位置计算需要移动的距离
         var p = index * -960
         $('#images2').css({
-            transform: 'translateX('+ p +'px)'
+            transform: 'translate('+ p +'px)'
         })
         n = index
         activeButton(allButtons.eq(n)) 
     })
 }
 var n = 0
+
 var size = allButtons.length
+
 //eq会找出对应的DOM且把对应的DOM封装成jQuery对象
 // trigger手动触发事件
 allButtons.eq(n%size).trigger('click')
+
 var timeId = setTimer()
 
 // 当鼠标移入
@@ -56,15 +59,15 @@ $('.window2').on('mouseleave',function(){
 function activeButton($button){
     // trigger手动触发事件
     $button
-    .addClass('red')
-    //这里注意的是：siblings接受的是选择区，而removeClass接受的是类名
-    .siblings('.red').removeClass('red')
+        .addClass('red')
+        //这里注意的是：siblings接受的是选择区，而removeClass接受的是类名
+        .siblings('.red').removeClass('red')
 }
 function setTimer() {
     return setInterval(() => {
-        n += 1
         allButtons.eq(n % size).trigger('click')
-    }, 2000)
+        n += 1
+    }, 3000)
 }
 
 //轮播3
@@ -118,7 +121,9 @@ function makeCurrent($node){
 document.addEventListener('visibilitychange',function(e){
     if(document.hidden){
         window.clearInterval(timer)
+        window.clearInterval(timerId)
     }else{
+        timerId = setTimer()
         timer = setInterval(() => {
             // 使用ES6插值法把n传进去
             makeLeave(getImages(m))
@@ -182,7 +187,6 @@ function goToSlides(index){
         index = $button4.length -1
     }
     if(current === $button4.length-1 && index === 0){
-        console.log($button4.length)
         $images4.css({transform:`translateX(${-($button4.length+1) * 960}px)`})
         
         // 当动画结束时添加一个时间，执行函数，让他快速转回第一张图片

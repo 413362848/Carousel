@@ -77,6 +77,12 @@ body p {
 .bnCtrl4 {
     text-align: center;
 }
+.controls{
+    text-align: center;
+}
+.controls button{
+    margin: 5px;
+}
 .bnCtrl4 button{
     margin: 5px;
 }
